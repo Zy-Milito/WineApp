@@ -4,7 +4,7 @@ Small app created for my uni whose purpose is to manage the stock of a wine stor
 
 ***
 
-##Endpoints
+## Endpoints
 ### User
 - GET /api/User | Get a list of all the users registered in the app and their properties.
 - POST /api/User | Register a new user.
