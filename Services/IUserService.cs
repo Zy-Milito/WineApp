@@ -7,5 +7,6 @@ namespace Services
     {
         List<User> GetAllUsers();
         void AddUser(UserForCreation userForCreation);
+        User? AuthenticateUser(string username, string password);
     }
 }

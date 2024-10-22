@@ -1,23 +1,24 @@
-﻿namespace Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data.Entities
 {
     public class Wine
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        // El nombre del vino, requerido
         public string Name { get; set; } = string.Empty;
 
-        // Variedad del vino (ej: Cabernet Sauvignon)
         public string Variety { get; set; } = string.Empty;
 
-        // Año de cosecha, debe ser un valor válido
         public int Year { get; set; }
 
-        // Región de origen (ej: Mendoza, La Rioja)
         public string Region { get; set; } = string.Empty;
 
-        // Cantidad disponible en stock, debe ser mayor o igual a 0
         private int _stock;
+
         public int Stock
         {
             get => _stock;
@@ -27,18 +28,17 @@
                 _stock = value;
             }
         }
+        
+        public List<Tasting> TastingInstances { get; set; } = new List<Tasting>();
 
-        // Fecha de registro del vino en el sistema
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Método para añadir stock
         public void AddStock(int amount)
         {
             if (amount <= 0) throw new ArgumentException("La cantidad a añadir debe ser mayor a 0.");
             Stock += amount;
         }
 
-        // Método para reducir stock
         public void RemoveStock(int amount)
         {
             if (amount <= 0) throw new ArgumentException("La cantidad a reducir debe ser mayor a 0.");

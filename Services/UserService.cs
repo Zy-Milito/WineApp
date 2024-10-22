@@ -26,5 +26,13 @@ namespace Services
             };
             _userRepository.AddUser(newUser);
         }
+
+        public User? AuthenticateUser(string username, string password)
+        {
+            User? userToReturn = _userRepository.Get(username);
+            if (userToReturn is not null && userToReturn.Password == password)
+                return userToReturn;
+            return null;
+        }
     }
 }

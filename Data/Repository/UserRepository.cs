@@ -4,41 +4,26 @@ namespace Data.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public List<User> Users { get; set; }
-        public UserRepository()
+        private readonly ApplicationContext _context;
+        public UserRepository(ApplicationContext context)
         {
-            Users = new List<User>()
-            {
-                new User()
-                {
-                    Id = 1,
-                    Username = "Lukas",
-                    Password = "password"
-                },
-                new User()
-                {
-                    Id = 2,
-                    Username = "Samantha",
-                    Password = "password"
-                },
-                new User()
-                {
-                    Id = 3,
-                    Username = "Friedrich",
-                    Password = "password"
-                }
-            };
+            _context = context;
         }
 
         public List<User> GetAll()
         {
-            return Users;
+            return _context.Users.ToList();
         }
 
         public void AddUser(User newUser)
         {
-            newUser.Id = Users.Count() + 1;
-            Users.Add(newUser);
+            newUser.Id = _context.Users.Count() + 1;
+            _context.Users.Add(newUser);
+        }
+
+        public User? Get(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == username);
         }
     }
 }
